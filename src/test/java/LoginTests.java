@@ -1,32 +1,33 @@
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 
 public class LoginTests extends BaseTest {
-    @Test
-    public void loginEmptyEmailPassword() {
 
-//      Added ChromeOptions argument below to fix websocket error
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
+    @Test (enabled = true, priority = 1, description = "Login with empty email and valid password")
+    public void loginEmptyEmailPassword(String email, String password) throws InterruptedException {
+        provideEmail(email);
+        providePassword(password);
+        clickSubmit();
 
-        // Test Changes for Github Fork
-        // Test Change
-        // Test Change 2
-
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        // TODO (for students): Review the configuration as part of HW15
-        
-        String url = "https://testpro.io/";
-        //Test
-        driver.get(url);
+        Thread.sleep(2000);
         Assert.assertEquals(driver.getCurrentUrl(), url);
-        driver.quit();
+    }
+
+    @Test (enabled = true, priority = 1, description = "Login with valid email and valid password")
+    public void loginValidEmailPassword(){
+
+        navigateToPage();
+        provideEmail("demo@testpro.io");
+        providePassword("te$t$tudent");
+        clickSubmit();
+        isAvatarDisplayed();
+    }
+
+    public void isAvatarDisplayed() {
+        WebElement avatarIcon = driver.findElement(By.cssSelector("img[class='avatar']"));
+        Assert.assertTrue(avatarIcon.isDisplayed());
     }
 }
