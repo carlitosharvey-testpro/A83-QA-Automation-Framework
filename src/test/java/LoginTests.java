@@ -23,8 +23,8 @@ public class LoginTests extends BaseTest {
 
         // TODO (for students): Review the configuration as part of HW15
         
-        String url = "https://testpro.io/";
-        //Test
+        String url = "https://qa.koel.app/";
+        // Add Change
         driver.get(url);
         Assert.assertEquals(driver.getCurrentUrl(), url);
         driver.quit();
